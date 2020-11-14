@@ -50,6 +50,8 @@ func main() {
 	player1 := game.ConstructPaddle()
 	ball := game.ConstructBall()
 
+	keyState := sdl.GetKeyboardState()
+
 	for {
 		for event := sdl.PollEvent(); event != nil; event = sdl.PollEvent() {
 			switch event.(type) {
@@ -57,8 +59,15 @@ func main() {
 				return
 			}
 		}
+		util.ClearPixels(pixels)
+
+		// Draw functions
 		player1.Draw(pixels)
 		ball.Draw(pixels)
+
+		// Update functions
+		player1.Update(keyState)
+		ball.Update()
 
 		tex.Update(nil, pixels, util.WinWidth*4)
 		renderer.Copy(tex, nil, nil)

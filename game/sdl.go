@@ -18,7 +18,7 @@ func ConstructPaddle() *Paddle {
 	return &Paddle{Pos{X: 100, Y: 100}, 20, 100, Color{R: 255, G: 255, B: 255}}
 }
 
-// Construct Ball returns a ball
+// ConstructBall returns a ball
 func ConstructBall() *Ball {
-	return &Ball{Pos{X: 300, Y: 300}, 20, 0, 0, Color{R: 255, G: 255, B: 255}}
+	return &Ball{Pos{X: 300, Y: 300}, 20, 4, 4, Color{R: 255, G: 255, B: 255}}
 }
