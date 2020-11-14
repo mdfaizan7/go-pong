@@ -39,16 +39,16 @@ func main() {
 	for y := 0; y < util.WinHeight; y++ {
 		for x := 0; x < util.WinWidth; x++ {
 			game.SetPixel(x, y,
-				util.Color{
-					R: 255,
+				game.Color{
+					R: 0,
 					G: 0,
 					B: 0,
 				}, pixels)
 		}
 	}
-	tex.Update(nil, pixels, util.WinWidth*4)
-	renderer.Copy(tex, nil, nil)
-	renderer.Present()
+
+	player1 := game.ConstructPaddle()
+	ball := game.ConstructBall()
 
 	for {
 		for event := sdl.PollEvent(); event != nil; event = sdl.PollEvent() {
@@ -57,5 +57,13 @@ func main() {
 				return
 			}
 		}
+		player1.Draw(pixels)
+		ball.Draw(pixels)
+
+		tex.Update(nil, pixels, util.WinWidth*4)
+		renderer.Copy(tex, nil, nil)
+		renderer.Present()
+
+		sdl.Delay(16)
 	}
 }
