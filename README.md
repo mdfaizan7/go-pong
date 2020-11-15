@@ -1,6 +1,8 @@
 # Go Pong
 The original pong game made with Go.
 
+![Go Pong](.github/screen.png)
+
 ## How to play
 1. Play with up and down arrows.
 2. To start new round press `Space`. 
