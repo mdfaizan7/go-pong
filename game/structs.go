@@ -9,16 +9,16 @@ type Color struct {
 
 // Pos describes the position
 type Pos struct {
-	X float32
-	Y float32
+	X int
+	Y int
 }
 
 // Ball represent the pong ball
 type Ball struct {
 	Pos
-	Radius int     // radius of the ball
-	XV     float32 // X velocity
-	YV     float32 // Y velocity
+	Radius int // radius of the ball
+	XV     int // X velocity
+	YV     int // Y velocity
 	Color  Color
 }
 

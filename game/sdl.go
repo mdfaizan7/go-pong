@@ -14,8 +14,8 @@ func SetPixel(x, y int, c Color, pixels []byte) {
 }
 
 // ConstructPaddle returns a paddle
-func ConstructPaddle() *Paddle {
-	return &Paddle{Pos{X: 100, Y: 100}, 20, 100, Color{R: 255, G: 255, B: 255}}
+func ConstructPaddle(X, Y int) *Paddle {
+	return &Paddle{Pos{X: X, Y: Y}, 20, 100, Color{R: 255, G: 255, B: 255}}
 }
 
 // ConstructBall returns a ball

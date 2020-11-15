@@ -47,7 +47,8 @@ func main() {
 		}
 	}
 
-	player1 := game.ConstructPaddle()
+	player1 := game.ConstructPaddle(50, 100)
+	player2 := game.ConstructPaddle(float32(util.WinWidth-50), 100)
 	ball := game.ConstructBall()
 
 	keyState := sdl.GetKeyboardState()
@@ -64,10 +65,12 @@ func main() {
 		// Draw functions
 		player1.Draw(pixels)
 		ball.Draw(pixels)
+		player2.Draw(pixels)
 
 		// Update functions
 		player1.Update(keyState)
-		ball.Update()
+		player2.AIUpdate(ball)
+		ball.Update(player1, player2)
 
 		tex.Update(nil, pixels, util.WinWidth*4)
 		renderer.Copy(tex, nil, nil)
