@@ -102,6 +102,6 @@ func main() {
 		renderer.Copy(tex, nil, nil)
 		renderer.Present()
 
-		sdl.Delay(20)
+		sdl.Delay(15)
 	}
 }

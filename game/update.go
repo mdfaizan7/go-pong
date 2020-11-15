@@ -27,14 +27,16 @@ func (b *Ball) Update(p1 *Paddle, p2 *Paddle, setStateStart function) {
 		setStateStart()
 	}
 
-	if b.X < p1.X+p1.W/2 && // check if paddle X is equal to ball X
+	if b.X-b.Radius < p1.X+p1.W/2 && // check if paddle X is equal to ball X
 		b.Y > p1.Y-p1.H/2 && b.Y < p1.Y+p1.H/2 { // check if the paddle covers same height as the ball
 		b.XV = -b.XV
+		b.X = p1.X + p1.W/2 + b.Radius
 	}
 
-	if b.X > p2.X-p2.W/2 &&
+	if b.X+b.Radius > p2.X-p2.W/2 &&
 		b.Y > p2.Y-p2.H/2 && b.Y < p2.Y+p2.H/2 {
 		b.XV = -b.XV
+		b.X = p2.X - p2.W/2 - b.Radius
 	}
 }
 

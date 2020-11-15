@@ -20,7 +20,7 @@ func ConstructPaddle(X, Y float32) *Paddle {
 
 // ConstructBall returns a ball
 func ConstructBall() *Ball {
-	return &Ball{Pos{X: 300, Y: 300}, 20, 10, 10, Color{R: 255, G: 255, B: 255}}
+	return &Ball{Pos{X: 300, Y: 300}, 20, 7, 7, Color{R: 255, G: 255, B: 255}}
 }
 
 // DrawNumber draws the numbers on screen
