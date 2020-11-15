@@ -8,6 +8,23 @@ import (
 	"github.com/veandco/go-sdl2/sdl"
 )
 
+// --
+type gameState int
+
+const (
+	start gameState = iota
+	play
+)
+
+var state = start
+
+// SetStateStart sets the game state to start
+func SetStateStart() {
+	state = start
+}
+
+// --
+
 func main() {
 	err := sdl.Init(sdl.INIT_EVERYTHING)
 	if err != nil {
@@ -38,7 +55,7 @@ func main() {
 
 	for y := 0; y < util.WinHeight; y++ {
 		for x := 0; x < util.WinWidth; x++ {
-			game.SetPixel(x, y,
+			game.SetPixel(float32(x), float32(y),
 				game.Color{
 					R: 0,
 					G: 0,
@@ -60,22 +77,31 @@ func main() {
 				return
 			}
 		}
-		util.ClearPixels(pixels)
+		if state == play {
+			// Update functions
+			player1.Update(keyState)
+			player2.AIUpdate(ball)
+			ball.Update(player1, player2, SetStateStart)
+		} else if state == start {
+			if keyState[sdl.SCANCODE_SPACE] != 0 {
+				if player1.Score == 5 || player2.Score == 5 {
+					player1.Score = 0
+					player2.Score = 0
+				}
+				state = play
+			}
+		}
 
+		util.ClearPixels(pixels)
 		// Draw functions
 		player1.Draw(pixels)
 		ball.Draw(pixels)
 		player2.Draw(pixels)
 
-		// Update functions
-		player1.Update(keyState)
-		player2.AIUpdate(ball)
-		ball.Update(player1, player2)
-
 		tex.Update(nil, pixels, util.WinWidth*4)
 		renderer.Copy(tex, nil, nil)
 		renderer.Present()
 
-		sdl.Delay(16)
+		sdl.Delay(20)
 	}
 }

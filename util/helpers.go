@@ -12,3 +12,8 @@ func ClearPixels(pixels []byte) {
 		pixels[i] = 0
 	}
 }
+
+// Lerp is a Linear Interpolation function
+func Lerp(a float32, b float32, pct float32) float32 {
+	return a + pct*(b-a)
+}

@@ -6,17 +6,25 @@ import (
 	"github.com/veandco/go-sdl2/sdl"
 )
 
+type function func()
+
 // Update function updates the position of Ball
-func (b *Ball) Update(p1 *Paddle, p2 *Paddle) {
+func (b *Ball) Update(p1 *Paddle, p2 *Paddle, setStateStart function) {
 	b.X += b.XV
 	b.Y += b.YV
 
-	if b.Y-b.Radius < 0 || b.Y+b.Radius > util.WinHeight {
+	if b.Y-b.Radius < 0 || b.Y+b.Radius > float32(util.WinHeight) {
 		b.YV = -b.YV
 	}
 
-	if b.X < 0 || b.X > util.WinWidth {
-		b.X, b.Y = 300, 300
+	if b.X < 0 {
+		p2.Score++
+		b.Pos = GetCenter()
+		setStateStart()
+	} else if int(b.X) > util.WinWidth {
+		p1.Score++
+		b.Pos = GetCenter()
+		setStateStart()
 	}
 
 	if b.X < p1.X+p1.W/2 && // check if paddle X is equal to ball X
@@ -33,15 +41,20 @@ func (b *Ball) Update(p1 *Paddle, p2 *Paddle) {
 // Update function updates the position of paddle
 func (p *Paddle) Update(keyState []uint8) {
 	if keyState[sdl.SCANCODE_UP] != 0 {
-		p.Y -= 5
+		p.Y -= 10
 	}
 
 	if keyState[sdl.SCANCODE_DOWN] != 0 {
-		p.Y += 5
+		p.Y += 10
 	}
 }
 
 // AIUpdate function updates the position of AI paddle
 func (p *Paddle) AIUpdate(b *Ball) {
 	p.Y = b.Y
+}
+
+// GetCenter returns the position of center of screen
+func GetCenter() Pos {
+	return Pos{float32(util.WinWidth / 2), float32(util.WinHeight / 2)}
 }
